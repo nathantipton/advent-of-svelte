@@ -72,7 +72,7 @@
     );
     if (!nathansPresent) return;
     myPresentId = nathansPresent.id;
-    addMessage("Nathan's present goes in the sleigh", "success");
+    addMessage("Nathan's present goes in the sleigh!", "success");
     handlePresentDrop(nathansPresent, "sleigh");
   };
 
@@ -88,10 +88,7 @@
 </script>
 
 {#if message}
-  <div
-    class="absolute top-8 w-fit right-8 alert text-sm alert-{messageType}"
-    in:fade
-  >
+  <div class="absolute top-12 w-fit self-center alert {messageType}" in:fade>
     {message}
   </div>
 {/if}
@@ -149,3 +146,13 @@
     {/each}
   </div>
 </div>
+
+<style lang="postcss">
+  .alert.success {
+    @apply bg-green-500 text-white font-semibold text-sm;
+  }
+
+  .alert.error {
+    @apply bg-red-500 text-white font-semibold text-sm;
+  }
+</style>
