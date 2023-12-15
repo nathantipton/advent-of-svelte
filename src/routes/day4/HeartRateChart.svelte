@@ -33,13 +33,15 @@
         {
           type: "spline",
           name: "Heart Rate",
-          data: heartRates,
+          data: [],
         },
       ],
     });
   });
-  $: if (chart && heartRates) {
-    chart.series[0].setData(heartRates);
+  $: if (chart && heartRates && heartRates.length > 0) {
+    const newPoint = heartRates.pop() as number;
+    const shouldShift = chart.series[0].data.length > 20;
+    chart.series[0].addPoint(newPoint, true, shouldShift);
   }
 </script>
 
