@@ -37,6 +37,11 @@
   });
 </script>
 
+
+<svelte:head>
+  <title>Day 2 | Advent of Svelte 2023</title>
+</svelte:head>
+
 <div class="flex flex-col gap-8" use:autoAnimate>
   <h2 class="text-2xl">Day 2 - Merry Munch-o-Meter</h2>
   <div

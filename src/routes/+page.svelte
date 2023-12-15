@@ -2,6 +2,10 @@
   let progress = $state(3);
 </script>
 
+<svelte:head>
+  <title>Home | Advent of Svelte 2023</title>
+</svelte:head>
+
 <ul class="flex flex-wrap">
   {#each Array.from({ length: 25 }, (_, i) => i + 1) as day}
     <li class="w-1/2 md:w-1/4 lg:w-1/6 p-2">

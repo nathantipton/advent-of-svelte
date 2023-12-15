@@ -87,6 +87,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Day 3 | Advent of Svelte 2023</title>
+</svelte:head>
+
 {#if message}
   <div class="absolute top-12 w-fit self-center alert {messageType}" in:fade>
     {message}

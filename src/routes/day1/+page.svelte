@@ -4,6 +4,10 @@
   const { async } = data;
 </script>
 
+<svelte:head>
+  <title>Day 1 | Advent of Svelte 2023</title>
+</svelte:head>
+
 <div class="flex flex-col gap-8">
   <h2 class="text-2xl">Day 1 - Santa's Naughty or Nice List</h2>
 
