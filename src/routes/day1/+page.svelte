@@ -10,7 +10,7 @@
   {#await async.list}
     <div>Fetching Santa's List</div>
   {:then list}
-    <div class="grid grid-cols-10 gap-2">
+    <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-10 gap-2">
       {#each list as item}
         <ListItem {item}></ListItem>
       {/each}

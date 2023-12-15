@@ -42,20 +42,20 @@
   <div
     class="flex flex-col justify-center items-center gap-12 w-full border p-8 rounded-xl bg-base-200"
   >
-    <div class="flex flex-row items-start justify-between w-full">
+    <div class="flex flex-row flex-wrap items-start justify-between w-full gap-8">
       <div class="space-y-2">
-        <h3 class="font-bold uppercase text-4xl">Munch-o-Meter</h3>
-        <p>Tracking how many cookies Santa has eaten this Christmas</p>
+        <h3 class="font-bold uppercase text-2xl md:text-4xl">🎅 <br/> Munch-o-Meter</h3>
+        <p class="text-xs md:text-small">Tracking how many cookies Santa has eaten this Christmas</p>
       </div>
-      <div class="flex flex-row items-center justify-end gap-4">
+      <div class="flex flex-row items-center justify-end gap-4 w-full md:w-fit">
         <div
-          class="flex flex-col gap-2 items-center justify-center aspect-square bg-base-300 w-32 rounded-xl"
+          class="flex flex-col flex-1 md:flex-auto gap-2 items-center justify-center aspect-square bg-base-300 w-32 rounded-xl"
         >
           Mood
           <span class="text-6xl">{mood}</span>
         </div>
         <div
-          class="flex flex-col gap-2 items-center justify-center aspect-square bg-base-300 w-32 rounded-xl"
+          class="flex flex-col flex-1 md:flex-auto gap-2 items-center justify-center aspect-square bg-base-300 w-32 rounded-xl"
         >
           Cookies Eaten
           <span class="text-6xl">{count}</span>
@@ -69,6 +69,7 @@
         on:click={increment}
       >
         <img
+          class="w-48"
           alt="Cookie"
           src="https://advent.sveltesociety.dev/_app/immutable/assets/cookie.0e187f81.png"
         />
