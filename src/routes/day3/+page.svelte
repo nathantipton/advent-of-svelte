@@ -98,7 +98,7 @@
 <div class="flex flex-col gap-8">
   <h2 class="text-2xl">Day 3 - Jingle Bell Balancer</h2>
   <div class="bg-base-200 rounded-xl flex flex-col p-8 gap-8">
-    <div class="flex flex-col gap-4 text-center pt-12">
+    <div class="flex flex-col gap-4 text-center">
       <div>
         <h2 class="font-bold text-3xl">Santa's Sleigh</h2>
         <p class="text-sm">
