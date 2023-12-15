@@ -4,7 +4,7 @@
   let count = $state(0);
   let mood = $state("🙁");
 
-  let santaIsDed = $derived(count > 35);
+  let santaIsDed = $derived(count >= 35);
 
   function increment() {
     count += 1;
