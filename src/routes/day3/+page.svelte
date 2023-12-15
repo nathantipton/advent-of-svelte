@@ -51,9 +51,7 @@
       if (presentsInSleigh.filter((p) => p.name === present.name).length > 0) {
         return;
       }
-      presentsInSleigh = [...presentsInSleigh, present].sort(
-        (a, b) => a.id - b.id
-      );
+      presentsInSleigh = [...presentsInSleigh, present];
       presentsOnShelf = presentsOnShelf.filter((p) => p.id !== present.id);
     } else if (target === "shelf") {
       presentsOnShelf = [...presentsOnShelf, present].sort(
