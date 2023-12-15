@@ -1,5 +1,5 @@
 <script lang="ts">
-  let progress = $state(2);
+  let progress = $state(3);
 </script>
 
 <ul class="flex flex-wrap">
