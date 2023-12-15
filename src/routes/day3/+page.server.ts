@@ -6,17 +6,13 @@ export const load: PageServerLoad = async ({ fetch }) => {
     const getPresents = async (): Promise<Present[]> => {
         type PresentWithoutId = Omit<Present, "id">;
 
-        return await fetch(URL)
+        return fetch(URL)
             .then((res) => res.json())
             .then(
-                (data) => data.map(
-                    (present: PresentWithoutId, index: number) => {
-                        return {
-                            id: index + 1,
-                            ...present,
-                        };
-                    }
-                )
+                (data: PresentWithoutId[]) =>
+                    data.map((present, index) => {
+                        return { ...present, id: index + 1 };
+                    })
             );
     };
 

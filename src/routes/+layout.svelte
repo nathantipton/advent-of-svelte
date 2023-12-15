@@ -1,6 +1,5 @@
 <script>
   import "../app.pcss";
-  import { Toaster } from "svelte-french-toast";
 </script>
 
 <div
@@ -16,5 +15,4 @@
     >
   </div>
   <slot />
-  <Toaster />
 </div>
