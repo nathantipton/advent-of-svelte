@@ -10,3 +10,8 @@ interface Present {
   name: string;
   weight: number;
 }
+
+// Day 4
+interface HeartRate {
+  heartRate: number;
+}

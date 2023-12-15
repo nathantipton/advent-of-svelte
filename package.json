@@ -15,6 +15,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.14",
+    "chart.js": "^4.4.1",
     "daisyui": "^4.4.20",
     "postcss": "^8.4.24",
     "postcss-load-config": "^4.0.1",
@@ -27,6 +28,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@formkit/auto-animate": "^0.8.1"
+    "@formkit/auto-animate": "^0.8.1",
+    "highcharts": "^11.2.0"
   }
 }
