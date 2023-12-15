@@ -29,11 +29,18 @@
         },
         tickLength: 0,
       },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false,
+          },
+        },
+      },
       series: [
         {
           type: "spline",
           name: "Heart Rate",
-          data: [],
+          data: Array.from({ length: 20 }, () => 0),
         },
       ],
     });
