@@ -124,11 +124,12 @@
       on:drop={(event) => onDrop(event, "sleigh")}
       role="listbox"
       tabindex="0"
-      class="drop-area flex flex-col justify-center items-center h-full bg-base-300 p-8 min-h-[240px] rounded"
+      class="relative drop-area flex flex-col justify-center items-center h-full bg-base-300 p-8 min-h-[240px] rounded border-dashed border-4 border-base-content"
     >
-      {#if presentsInSleigh.length === 0}
+      <div class="uppercase text-sm font-bold absolute top-4 opacity-50">
         Drop the presents here
-      {/if}
+      </div>
+
       <div class="flex flex-row flex-wrap gap-4 items-center justify-center">
         {#each presentsInSleigh as present (present.id)}
           <PresentCard {present}></PresentCard>
