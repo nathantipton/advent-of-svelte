@@ -83,3 +83,73 @@ export const EMPTY_ELF_ANALYTICS: ElfAnalytics = {
   fastestWrappedPresentLeaderboard: [],
   elfKpis: {}
 }
+
+
+// Day 6
+export interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  youtubeId: string;
+  targetBpm: number;
+  startTime: number;
+}
+
+export const SONG_CHOICES: Song[] = [
+  {
+    id: 1,
+    title: "All I Want for Christmas Is You",
+    artist: "Mariah Carey",
+    youtubeId: "aAkMkVFwAoo",
+    targetBpm: 150,
+    startTime: 54
+  },
+  {
+    id: 2,
+    title: "Last Christmas",
+    artist: "Wham!",
+    youtubeId: "E8gmARGvPlI",
+    targetBpm: 108,
+    startTime: 0
+  },
+  {
+    id: 3,
+    title: "Jingle Bell Rock",
+    artist: "Bobby Helms",
+    youtubeId: "Gqwk7uR1BI8",
+    targetBpm: 120,
+    startTime: 0
+  },
+  {
+    id: 4,
+    title: "It's Beginning to Look a Lot Like Christmas",
+    artist: "Michael Bublé",
+    youtubeId: "0bhsXykXxfg",
+    targetBpm: 93,
+    startTime: 35
+  },
+  {
+    id: 5,
+    title: "Feliz Navidad",
+    artist: "José Feliciano",
+    youtubeId: "0UVUW11FENs",
+    targetBpm: 148,
+    startTime: 20
+  },
+  {
+    id: 6,
+    title: "Santa Tell Me",
+    artist: "Ariana Grande",
+    youtubeId: "nlR0MkrRklg",
+    targetBpm: 96,
+    startTime: 10
+  },
+  {
+    id: 7,
+    title: "Santa Claus Is Coming to Town",
+    artist: "Jackson 5",
+    youtubeId: "HhiUOCo8LYQ",
+    targetBpm: 140,
+    startTime: 30
+  }
+]
