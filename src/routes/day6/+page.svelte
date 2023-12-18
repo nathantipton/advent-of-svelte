@@ -7,7 +7,7 @@
   let bpm = $state(0);
   let variance = $state(0);
   let timePassed = $state(0);
-  let targetBPM = $state(150);
+  let targetBPM = $state(0);
   let gameMessage = $state("");
   let diffMessage = $state("");
   let song: Song | null = $state(null);
@@ -51,6 +51,10 @@
 
   const addBeat = () => {
     beatHistory.push(Date.now());
+    // only keep the last 20 beats if there are more than 20
+    if (beatHistory.length > 20) {
+      beatHistory = beatHistory.slice(-20);
+    }
     calculateBPM();
   };
 
@@ -153,7 +157,9 @@
     >
     <div class="bg-base-100 py-6 px-8 rounded-xl flex-col flex gap-4">
       <div class="flex flex-col items-center justify-center">
-        <div class="text-xs font-bold uppercase mb-2">Target: {targetBPM}</div>
+        <div class="text-xs font-bold uppercase mb-2">
+          Target: {targetBPM > 0 ? targetBPM : "-"}
+        </div>
         <div class="text-xs font-bold uppercase">Your BPM</div>
         <div class="text-6xl">{bpm.toFixed(0)}</div>
         <div>{diffMessage}</div>
