@@ -43,10 +43,17 @@
 
   const handleKeydown = (event: KeyboardEvent) => {
     if (event.code === "Space") {
-      console.log("Space pressed");
-      beatHistory.push(Date.now());
-      calculateBPM();
+      addBeat();
     }
+  };
+
+  const handleButtonClick = () => {
+    addBeat();
+  };
+
+  const addBeat = () => {
+    beatHistory.push(Date.now());
+    calculateBPM();
   };
 
   const calculateBPM = () => {
@@ -112,7 +119,14 @@
 </script>
 
 <div class="container mx-auto max-w-4xl">
-  <h1 class="text-primary font-bold text-2xl mb-4">Elf Metronome</h1>
+  <h1 class="text-red-600 font-bold text-2xl">Elf Metronome</h1>
+  <p class="mb-4 text-sm">
+    Select your song and then use the button or your <kbd
+      class="border border-base-300 rounded-md p-1"
+    >
+      SPACEBAR</kbd
+    > to try to keep the beat.
+  </p>
   <div
     class="bg-base-200 p-8 rounded-xl flex flex-col items-center justify-center gap-8"
   >
@@ -135,7 +149,10 @@
         {/if}
       </div>
     </div>
-    <div class="-my-4 text-sm">{gameMessage}</div>
+    <button
+      class="btn btn-lg bg-red-600 hover:bg-red-800 text-white"
+      on:click={handleButtonClick}>Press me to the beat</button
+    >
     <div class="bg-base-100 py-6 px-8 rounded-xl flex-col flex gap-4">
       <div class="flex flex-col items-center justify-center">
         <div class="text-xs font-bold uppercase mb-2">Target: {targetBPM}</div>
