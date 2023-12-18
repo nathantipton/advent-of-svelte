@@ -1,5 +1,5 @@
 <script lang="ts">
-  let progress = $state(4);
+  let progress = $state(5);
 </script>
 
 <svelte:head>
