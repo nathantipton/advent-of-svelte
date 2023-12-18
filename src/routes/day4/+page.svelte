@@ -6,11 +6,6 @@
   const heartRates = writable<number[]>([]);
   let currentHeartRate: number | null = null;
   let zone: "resting" | "fat-burning" | "cardio" | "peak" = "resting";
-  let averageHeartRate = derived<Writable<number[]>, number>(
-    heartRates,
-    ($heartRates: number[]) =>
-      $heartRates.reduce((acc, rate) => acc + rate, 0) / $heartRates.length
-  );
 
   $: if (currentHeartRate) {
     if (currentHeartRate < 60) {
@@ -70,14 +65,6 @@
         <div class="text-2xl font-bold uppercase">{zone}</div>
       </div>
       <div class="flex flex-row gap-4">
-        <div
-          class="bg-base-300 p-4 rounded flex-1 flex flex-col gap-2 items-center justify-center"
-        >
-          <div class="text-xs font-semibold uppercase">Average HR</div>
-          <div class="text-2xl font-bold">
-            {isNaN($averageHeartRate) ? "-" : $averageHeartRate.toFixed(0)}
-          </div>
-        </div>
         <div
           class="bg-base-300 p-4 rounded flex-1 flex flex-col gap-2 items-center justify-center"
         >
