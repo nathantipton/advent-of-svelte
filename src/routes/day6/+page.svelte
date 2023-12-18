@@ -15,8 +15,6 @@
 
   onMount(() => {
     player = YouTube("player", {
-      height: "390",
-      width: "640",
       videoId: song?.youtubeId ?? "",
       playerVars: {
         autoplay: 1,
@@ -173,7 +171,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="overflow-hidden">
       <div id="player"></div>
     </div>
   </div>
