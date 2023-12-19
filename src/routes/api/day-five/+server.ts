@@ -1,4 +1,4 @@
-import { analyzeElfTasks } from "$lib/day-5/analytics-service";
+import { analyzeElfTasks } from "$lib/day/5/analytics-service";
 import type { Task } from "$lib/models";
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
