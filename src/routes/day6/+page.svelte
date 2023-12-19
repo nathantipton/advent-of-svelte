@@ -123,9 +123,11 @@
   class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-70 -z-10"
 ></div>
 <div
-  class="absolute container mx-auto top-0 bottom-0 left-0 right-0 z-10 flex flex-col items-stretch justify-start"
+  class="absolute container mx-auto top-6 px-4 md:px-0 bottom-0 left-0 right-0 z-10 flex flex-col items-stretch justify-start"
 >
-  <div class="flex flex-row items-center justify-between pt-28">
+  <div
+    class="flex flex-row flex-wrap items-center justify-center md:justify-between pt-28"
+  >
     <div>
       <h1 class="font-bold text-2xl">Elf Metronome</h1>
       <p class="mb-4 text-sm">
