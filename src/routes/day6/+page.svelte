@@ -2,40 +2,35 @@
   import { SONG_CHOICES, type Song } from "$lib/models";
   import { onMount } from "svelte";
   import YouTube from "youtube-player";
+  import PlayerStates from "youtube-player/dist/constants/PlayerStates";
   import type { YouTubePlayer } from "youtube-player/dist/types";
 
   let bpm = $state(0);
-  let variance = $state(0);
-  let timePassed = $state(0);
-  let targetBPM = $state(0);
+  let currentBPM = $state<number | null>(null);
+  let variance = $state<number | null>(null);
+  let varianceDirection = $state<"fast" | "slow" | "">("");
+  let varianceClass = $state<string>("");
+  let targetBPM = $state<number>(0);
   let gameMessage = $state("");
-  let diffMessage = $state("");
+  let beatHistory = $state<number[]>([]);
   let song: Song | null = $state(null);
+  let playerState = $state<PlayerStates>(0);
   let player: YouTubePlayer | null = null;
 
   onMount(() => {
     player = YouTube("player", {
-      videoId: song?.youtubeId ?? "",
+      videoId: song?.youtubeId ?? "aAkMkVFwAoo",
+      height: "100%",
+      width: "100%",
       playerVars: {
-        autoplay: 1,
         start: song?.startTime ?? 0,
       },
     });
-  });
 
-  // Array of timestamps
-  let beatHistory = $state<number[]>([]);
+    player.on("stateChange", (event) => {
+      playerState = event.data;
+    });
 
-  const differenceMessages = {
-    0: "Perfect",
-    1: "Slightly off",
-    2: "Off",
-    3: "Very off",
-    4: "Way off",
-    5: "Terrible",
-  };
-
-  onMount(() => {
     window.addEventListener("keydown", handleKeydown);
   });
 
@@ -60,42 +55,29 @@
 
   const calculateBPM = () => {
     if (beatHistory.length < 2) return;
+
     const lastBeat = beatHistory[beatHistory.length - 1];
-    const firstBeat = beatHistory[0];
-    timePassed = lastBeat - firstBeat;
-    bpm = (beatHistory.length / timePassed) * 60000;
-
-    // calculate variance of the last 10 beats with standard deviation
-    const lastTenBeats = beatHistory.slice(-10);
-    const averageBPM =
-      lastTenBeats.reduce((a, b) => a + b) / lastTenBeats.length;
-    const varianceSum = lastTenBeats.reduce(
-      (a, b) => a + Math.pow(b - averageBPM, 2),
-      0
-    );
-    variance = Math.sqrt(varianceSum / lastTenBeats.length) / 1000;
-
-    // calculate message
-    const difference = Math.abs(bpm - targetBPM);
-    if (difference < 1) {
-      diffMessage = differenceMessages[0];
-    } else if (difference < 5) {
-      diffMessage = differenceMessages[1];
-    } else if (difference < 10) {
-      diffMessage = differenceMessages[2];
-    } else if (difference < 20) {
-      diffMessage = differenceMessages[3];
-    } else if (difference < 30) {
-      diffMessage = differenceMessages[4];
-    } else {
-      diffMessage = differenceMessages[5];
-    }
+    const secondToLastBeat = beatHistory[beatHistory.length - 2];
+    const timePassed = lastBeat - secondToLastBeat;
+    currentBPM = (1 / (timePassed / 1000)) * 60;
+    variance = Math.abs(currentBPM - targetBPM);
+    varianceDirection = currentBPM > targetBPM ? "fast" : "slow";
+    varianceDirection = currentBPM === targetBPM ? "" : varianceDirection;
   };
 
   const reset = () => {
     beatHistory = [];
     bpm = 0;
     variance = 0;
+  };
+
+  const pause = () => {
+    player?.pauseVideo();
+  };
+
+  const play = () => {
+    player?.playVideo();
+    player?.getPlayerState();
   };
 
   const handleSongSelection = (
@@ -116,26 +98,49 @@
 
   const startGame = () => {
     player?.playVideo();
-    gameMessage = "Press spacebar to the beat!";
+    gameMessage = "";
   };
+
+  $effect(() => {
+    if (!variance) return;
+
+    if (variance > 20) {
+      varianceClass = "text-red-500";
+    } else if (variance > 10) {
+      varianceClass = "text-yellow-500";
+    } else {
+      varianceClass = "text-green-500";
+    }
+  });
 </script>
 
-<div class="container mx-auto max-w-4xl">
-  <h1 class="text-red-600 font-bold text-2xl">Elf Metronome</h1>
-  <p class="mb-4 text-sm">
-    Select your song and then use the button or your <kbd
-      class="border border-base-300 rounded-md p-1"
-    >
-      SPACEBAR</kbd
-    > to try to keep the beat.
-  </p>
-  <div
-    class="bg-base-200 p-8 rounded-xl flex flex-col items-center justify-center gap-8"
-  >
-    <div class="flex flex-row justify-between items-center w-full">
+<div
+  data-theme="myChristmasTheme"
+  class="absolute top-0 bottom-0 left-0 right-0 bg-black -z-20"
+  id="player"
+></div>
+<div
+  class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-70 -z-10"
+></div>
+<div
+  class="absolute container mx-auto top-0 bottom-0 left-0 right-0 z-10 flex flex-col items-stretch justify-start"
+>
+  <div class="flex flex-row items-center justify-between pt-28">
+    <div>
+      <h1 class="font-bold text-2xl">Elf Metronome</h1>
+      <p class="mb-4 text-sm">
+        Select your song and then use the button or your <kbd
+          class="border border-base-300 rounded-md p-1"
+        >
+          SPACEBAR</kbd
+        > to try to keep the beat.
+      </p>
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
       <select
         id="song-select"
-        class="select select-bordered w-full max-w-xs"
+        class="select select-bordered w-full max-w-xs select-ghost"
         on:change={handleSongSelection}
       >
         <option disabled selected>Pick your song</option>
@@ -143,42 +148,76 @@
           <option value={song.id}>{song.title} - {song.artist}</option>
         {/each}
       </select>
-      <div class="flex flex-row items-center gap-2">
-        {#if song}
-          <div>
-            <button class="btn btn-outline" on:click={reset}>Reset</button>
-          </div>
-        {/if}
-      </div>
     </div>
-    <button
-      class="btn btn-lg bg-red-600 hover:bg-red-800 text-white"
-      on:click={handleButtonClick}>Press me to the beat</button
-    >
-    <div class="bg-base-100 py-6 px-8 rounded-xl flex-col flex gap-4">
-      <div class="flex flex-col items-center justify-center">
-        <div class="text-xs font-bold uppercase mb-2">
-          Target: {targetBPM > 0 ? targetBPM : "-"}
-        </div>
-        <div class="text-xs font-bold uppercase">Your BPM</div>
-        <div class="text-6xl">{bpm.toFixed(0)}</div>
-        <div>{diffMessage}</div>
-      </div>
+  </div>
 
-      <div class="flex flex-row items-center justify-center text-xs gap-4">
-        <div>
-          Variance: {variance.toFixed(0)} bpm
+  <div class="flex-1 flex flex-col items-center justify-center">
+    {#if song}
+      <div class="flex flex-col items-center justify-center gap-4">
+        <div class="font-semibold text-content-300 uppercase text-sm">
+          Target {targetBPM} BPM
         </div>
-        <div>
-          Time passed: {(timePassed / 1000).toFixed(0)} seconds
+        <div class="flex flex-row items-baseline justify-center gap-2">
+          <div class="text-8xl font-semibold text-white">
+            {currentBPM?.toFixed(0) ?? "-"}
+          </div>
+          <div class="text-xl font-semibold text-content-300 text-opacity-30">
+            BPM
+          </div>
         </div>
+
         <div>
-          Total beats recorded: {beatHistory.length}
+          {#if variance}
+            {#if variance > 0}
+              <i class="fa-solid fa-arrow-up {varianceClass} fa-lg mr-2"></i>
+              {variance.toFixed(0)} fast
+            {:else if variance < 0}
+              <i class="fa-solid fa-arrow-down {varianceClass} fa-lg mr-2"></i>
+              {variance.toFixed(0)} slow
+            {:else}
+              <i class="fa-solid fa-check text-content-300 mr-2"></i> Nice work!
+            {/if}
+          {/if}
         </div>
       </div>
-    </div>
-    <div class="overflow-hidden">
-      <div id="player"></div>
+    {:else}
+      <div class="text-2xl text">Select a song to begin</div>
+    {/if}
+  </div>
+  <div class="flex flex-col items-center justify-center gap-4 pb-12">
+    <button
+      on:click={handleButtonClick}
+      class="btn btn-lg bg-red-600 hover:bg-red-800 text-white h-36 w-36 btn-circle btn-glow uppercase font-bold"
+    >
+      Tap
+    </button>
+    <div class="flex flex-row items-center justify-center gap-2">
+      {#if song}
+        <button
+          class="btn btn-square btn-ghost"
+          disabled={!song}
+          on:click={pause}
+        >
+          RESET
+        </button>
+      {/if}
+      {#if playerState === 1}
+        <button
+          class="btn btn-square btn-ghost"
+          disabled={!song}
+          on:click={pause}
+        >
+          <i class="fa-solid fa-pause"></i>
+        </button>
+      {:else}
+        <button
+          class="btn btn-square btn-ghost"
+          disabled={!song}
+          on:click={play}
+        >
+          <i class="fa-solid fa-play"></i>
+        </button>
+      {/if}
     </div>
   </div>
 </div>
