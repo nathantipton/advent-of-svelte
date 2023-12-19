@@ -1,3 +1,17 @@
+// Home
+export interface AdventDay {
+  day: number;
+  title: string;
+  description: string;
+  link: string;
+  icon: string;
+  status: AdventDayStatus;
+}
+
+export type AdventDayStatus = "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
+
+export type AdventCalendar = AdventDay[];
+
 // Day 1
 export interface ListItem {
   name: string;

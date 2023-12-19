@@ -100,7 +100,7 @@
     if (!variance) return;
 
     if (variance > 20) {
-      varianceClass = "text-red-500";
+      varianceClass = "text-primary";
     } else if (variance > 10) {
       varianceClass = "text-yellow-500";
     } else {
@@ -196,7 +196,7 @@
     {#if song}
       <button
         on:click={handleButtonClick}
-        class="btn btn-lg bg-red-600 hover:bg-red-800 text-white h-36 w-36 btn-circle btn-glow uppercase font-bold"
+        class="btn btn-lg bg-primary hover:bg-red-800 text-white h-36 w-36 btn-circle btn-glow uppercase font-bold"
       >
         Tap
       </button>

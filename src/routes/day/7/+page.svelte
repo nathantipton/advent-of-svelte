@@ -43,7 +43,7 @@
     class="absolute top-0 bottom-0 left-0 right-0 bg-morse-code bg-cover bg-no-repeat bg-center -z-10 opacity-10"
   ></div>
   <div class="flex flex-col items-stretch justify-start gap-4 text-center z-10">
-    <h1 class="text-3xl font-bold font-xmas text-red-500">Morse Mischief</h1>
+    <h1 class="text-3xl font-bold font-xmas text-primary">Morse Mischief</h1>
     <p class="text-sm">
       Building on the success of the recent North Pole technological
       initiatives, Santa has encountered a unique communication challenge. He

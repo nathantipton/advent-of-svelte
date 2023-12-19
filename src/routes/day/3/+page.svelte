@@ -158,6 +158,6 @@
   }
 
   .alert.error {
-    @apply bg-red-500 text-white font-semibold text-sm;
+    @apply bg-primary text-white font-semibold text-sm;
   }
 </style>

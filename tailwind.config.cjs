@@ -12,6 +12,11 @@ const config = {
       backgroundImage: {
         "morse-code": "url('/morse-code.webp')",
       },
+      colors: {
+        "content-100": "#f8fafc", // Slate 50 for primary content, a very light slate
+        "content-200": "#525252", // Retaining the dark gray for secondary content
+        "content-300": "#6b6b6b", // Retaining the darker gray for tertiary content
+      },
     },
   },
   daisyui: {
@@ -26,29 +31,25 @@ const config = {
           "base-100": "#ffffff", // White for base background
           "base-200": "#f4f4f5", // Light gray for slightly darker base elements
           "base-300": "#e5e7eb", // Medium gray for tertiary base elements
-          "content-100": "#f8f8f8", // Very light gray for primary content
-          "content-200": "#e0e0e0", // Light gray for secondary content
-          "content-300": "#c6c6c6", // Medium gray for tertiary content
+          "base-content": "#f8f8f8", // Very light gray for primary content
           info: "#60a5fa", // Blue for informational elements
           success: "#22c55e", // Green for success elements
           warning: "#fbbf24", // Yellow for warning elements
           error: "#ef4444", // Red for error elements
         },
         myChristmasThemeDark: {
-          primary: "#f87171", // Light red for primary elements
-          secondary: "#34d399", // Light emerald for secondary elements
-          accent: "#fde047", // Light yellow for accent elements
-          neutral: "#a1a1a1", // Light gray for neutral elements
-          "base-100": "#1f2937", // Dark gray for base background
-          "base-200": "#374151", // Slightly lighter dark gray for base-200 elements
-          "base-300": "#4b5563", // Even lighter dark gray for base-300 elements
-          "content-100": "#d1d5db", // Light gray for primary content
-          "content-200": "#525252", // Dark gray for secondary content
-          "content-300": "#6b6b6b", // Darker gray for tertiary content
-          info: "#93c5fd", // Light blue for informational elements
-          success: "#4ade80", // Light green for success elements
-          warning: "#fcd34d", // Light yellow for warning elements
-          error: "#f87171", // Light red for error elements
+          primary: "#dc2626", // Red 600 for primary elements, a bold red
+          secondary: "#16a34a", // Green 600 for secondary elements, a rich green
+          accent: "#fde047", // Retaining the light yellow for accent elements
+          neutral: "#64748b", // Slate 400 for neutral elements, a medium slate color
+          "base-100": "#1e293b", // Slate 800 for base background, a dark slate
+          "base-200": "#334155", // Slate 700 for base-200 elements
+          "base-300": "#475569", // Slate 600 for base-300 elements
+          "base-content": "#f8fafc", // Slate 50 for primary content, a very light slate
+          info: "#93c5fd", // Retaining the light blue for informational elements
+          success: "#4ade80", // Retaining the light green for success elements
+          warning: "#fcd34d", // Retaining the light yellow for warning elements
+          error: "#dc2626", // Red 600 for error elements, matching the primary color
         },
       },
     ],
