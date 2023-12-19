@@ -9,6 +9,9 @@ const config = {
       fontFamily: {
         xmas: ["Mountains of Christmas", "cursive"],
       },
+      backgroundImage: {
+        "morse-code": "url('/morse-code.webp')",
+      },
     },
   },
   daisyui: {

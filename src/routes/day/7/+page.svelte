@@ -39,7 +39,10 @@
 <div
   class="container mx-auto max-w-2xl bg-base-200 rounded-xl p-8 flex flex-col items-stretch justify-start gap-8"
 >
-  <div class="flex flex-col items-stretch justify-start gap-4 text-center">
+  <div
+    class="absolute top-0 bottom-0 left-0 right-0 bg-morse-code bg-center -z-10 opacity-10"
+  ></div>
+  <div class="flex flex-col items-stretch justify-start gap-4 text-center z-10">
     <h1 class="text-3xl font-bold font-xmas text-red-500">Morse Mischief</h1>
     <p class="text-sm">
       Building on the success of the recent North Pole technological
