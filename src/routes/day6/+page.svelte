@@ -168,10 +168,10 @@
 
         <div>
           {#if variance}
-            {#if variance > 0}
+            {#if varianceDirection === "fast"}
               <i class="fa-solid fa-arrow-up {varianceClass} fa-lg mr-2"></i>
               {variance.toFixed(0)} fast
-            {:else if variance < 0}
+            {:else if varianceDirection === "slow"}
               <i class="fa-solid fa-arrow-down {varianceClass} fa-lg mr-2"></i>
               {variance.toFixed(0)} slow
             {:else}
