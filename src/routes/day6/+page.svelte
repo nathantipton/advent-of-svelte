@@ -5,14 +5,14 @@
   import PlayerStates from "youtube-player/dist/constants/PlayerStates";
   import type { YouTubePlayer } from "youtube-player/dist/types";
 
-  let bpm = $state(0);
   let currentBPM = $state<number | null>(null);
   let variance = $state<number | null>(null);
   let varianceDirection = $state<"fast" | "slow" | "">("");
   let varianceClass = $state<string>("");
   let targetBPM = $state<number>(0);
-  let gameMessage = $state("");
-  let beatHistory = $state<number[]>([]);
+
+  let timestamp1 = $state<number | null>(null);
+  let timestamp2 = $state<number | null>(null);
   let song: Song | null = $state(null);
   let playerState = $state<PlayerStates>(0);
   let player: YouTubePlayer | null = null;
@@ -45,20 +45,15 @@
   };
 
   const addBeat = () => {
-    beatHistory.push(Date.now());
-    // only keep the last 20 beats if there are more than 20
-    if (beatHistory.length > 20) {
-      beatHistory = beatHistory.slice(-20);
-    }
+    timestamp2 = timestamp1;
+    timestamp1 = Date.now();
+    if (!timestamp2) return;
     calculateBPM();
   };
 
   const calculateBPM = () => {
-    if (beatHistory.length < 2) return;
-
-    const lastBeat = beatHistory[beatHistory.length - 1];
-    const secondToLastBeat = beatHistory[beatHistory.length - 2];
-    const timePassed = lastBeat - secondToLastBeat;
+    if (!timestamp1 || !timestamp2) return;
+    const timePassed = timestamp1 - timestamp2;
     currentBPM = (1 / (timePassed / 1000)) * 60;
     variance = Math.abs(currentBPM - targetBPM);
     varianceDirection = currentBPM > targetBPM ? "fast" : "slow";
@@ -66,7 +61,8 @@
   };
 
   const reset = () => {
-    beatHistory = [];
+    timestamp1 = null;
+    timestamp2 = null;
     currentBPM = null;
     variance = 0;
   };
@@ -98,7 +94,6 @@
 
   const startGame = () => {
     player?.playVideo();
-    gameMessage = "";
   };
 
   $effect(() => {
@@ -140,16 +135,18 @@
     </div>
 
     <div class="flex flex-row items-center gap-2">
-      <select
-        id="song-select"
-        class="select select-bordered w-full max-w-xs select-ghost"
-        on:change={handleSongSelection}
-      >
-        <option disabled selected>Pick your song</option>
-        {#each SONG_CHOICES as song (song.id)}
-          <option value={song.id}>{song.title} - {song.artist}</option>
-        {/each}
-      </select>
+      {#if song}
+        <select
+          id="song-select"
+          class="select select-bordered w-full max-w-xs select-ghost"
+          on:change={handleSongSelection}
+        >
+          <option disabled selected>Pick your song</option>
+          {#each SONG_CHOICES as song (song.id)}
+            <option value={song.id}>{song.title} - {song.artist}</option>
+          {/each}
+        </select>
+      {/if}
     </div>
   </div>
 
@@ -183,43 +180,55 @@
         </div>
       </div>
     {:else}
-      <div class="text-2xl text">Select a song to begin</div>
+      <select
+        id="song-select"
+        class="select select-lg select-bordered w-full max-w-lg select-ghost"
+        on:change={handleSongSelection}
+      >
+        <option disabled selected>Pick your song</option>
+        {#each SONG_CHOICES as song (song.id)}
+          <option value={song.id}>{song.title} - {song.artist}</option>
+        {/each}
+      </select>
     {/if}
   </div>
   <div class="flex flex-col items-center justify-center gap-4 pb-12">
-    <button
-      on:click={handleButtonClick}
-      class="btn btn-lg bg-red-600 hover:bg-red-800 text-white h-36 w-36 btn-circle btn-glow uppercase font-bold"
-    >
-      Tap
-    </button>
-    <div class="flex flex-row items-center justify-center gap-2">
-      {#if song}
-        <button
-          class="btn btn-square btn-ghost"
-          disabled={!song}
-          on:click={reset}
-        >
-          RESET
-        </button>
-      {/if}
-      {#if playerState === 1}
-        <button
-          class="btn btn-square btn-ghost"
-          disabled={!song}
-          on:click={pause}
-        >
-          <i class="fa-solid fa-pause"></i>
-        </button>
-      {:else}
-        <button
-          class="btn btn-square btn-ghost"
-          disabled={!song}
-          on:click={play}
-        >
-          <i class="fa-solid fa-play"></i>
-        </button>
-      {/if}
-    </div>
+    {#if song}
+      <button
+        on:click={handleButtonClick}
+        class="btn btn-lg bg-red-600 hover:bg-red-800 text-white h-36 w-36 btn-circle btn-glow uppercase font-bold"
+      >
+        Tap
+      </button>
+
+      <div class="flex flex-row items-center justify-center gap-2">
+        {#if song}
+          <button
+            class="btn btn-square btn-ghost"
+            disabled={!song}
+            on:click={reset}
+          >
+            RESET
+          </button>
+        {/if}
+        {#if playerState === 1}
+          <button
+            class="btn btn-square btn-ghost"
+            disabled={!song}
+            on:click={pause}
+          >
+            <i class="fa-solid fa-pause"></i>
+          </button>
+        {:else}
+          <button
+            class="btn btn-square btn-ghost"
+            disabled={!song}
+            on:click={play}
+          >
+            <i class="fa-solid fa-play"></i>
+          </button>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
