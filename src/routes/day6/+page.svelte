@@ -67,7 +67,7 @@
 
   const reset = () => {
     beatHistory = [];
-    bpm = 0;
+    currentBPM = null;
     variance = 0;
   };
 
@@ -196,7 +196,7 @@
         <button
           class="btn btn-square btn-ghost"
           disabled={!song}
-          on:click={pause}
+          on:click={reset}
         >
           RESET
         </button>
