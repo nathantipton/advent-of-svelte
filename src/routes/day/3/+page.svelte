@@ -3,6 +3,7 @@
   import PresentCard from "./PresentCard.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
+  import type { Present } from "$lib/models";
 
   /**
    * I tried maps and they didn't work well with the reactivity, so I'm using arrays instead

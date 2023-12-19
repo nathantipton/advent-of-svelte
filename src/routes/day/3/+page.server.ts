@@ -1,3 +1,4 @@
+import type { Present } from "$lib/models";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {

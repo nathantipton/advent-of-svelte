@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { derived, writable, type Writable } from "svelte/store";
+  import { writable  } from "svelte/store";
   import HeartRateChart from "./HeartRateChart.svelte";
+  import type { HeartRate } from "$lib/models";
 
   const heartRates = writable<number[]>([]);
   let currentHeartRate: number | null = null;

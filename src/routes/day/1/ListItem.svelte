@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { ListItem } from "$lib/models";
   import NaughtyOrNiceIcon from "./NaughtyOrNiceIcon.svelte";
 
   const { item } = $props<{ item: ListItem }>();

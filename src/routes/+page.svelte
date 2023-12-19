@@ -12,7 +12,7 @@
       <svelte:element
         this={day <= progress ? "a" : "div"}
         class="day-link"
-        href={`/day${day}`}
+        href={`/day/${day}`}
       >
         Day {day}
         <span class="ml-2">
