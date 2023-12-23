@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
     if (existingGame) {
         game = new MatchGame(existingGame);
     } else {
-        game = new MatchGame(undefined, { size: GameSize.Medium, isTimed: false });
+        game = new MatchGame(undefined, { size: GameSize.Small, isTimed: true });
         cookies.set('match-game', game.toString(), { path: '' });
     }
 
@@ -50,7 +50,7 @@ export const actions: Actions = {
     // TODO: make size configurable
     newGame: async ({ cookies }) => {
         cookies.delete('match-game', { path: '' });
-        const game = new MatchGame(undefined, { size: GameSize.Small, isTimed: false });
+        const game = new MatchGame(undefined, { size: GameSize.Small, isTimed: true });
         cookies.set('match-game', game.toString(), { path: '' });
 
         return {}
