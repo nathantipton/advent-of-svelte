@@ -6,6 +6,16 @@ const config = {
   darkMode: "media",
   theme: {
     extend: {
+      gridTemplateColumns: {
+        "4-fit": "repeat(4, auto-fill)",
+      },
+      height: {
+        "screen-safe": "100dvh",
+        "content-full": "calc(100dvh - 6rem)",
+      },
+      minHeight: {
+        "screen-safe": "100dvh",
+      },
       fontFamily: {
         xmas: ["Mountains of Christmas", "cursive"],
       },

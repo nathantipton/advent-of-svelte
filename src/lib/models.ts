@@ -1,3 +1,4 @@
+
 // Home
 export interface AdventDay {
   day: number;
@@ -167,3 +168,33 @@ export const SONG_CHOICES: Song[] = [
     startTime: 30
   }
 ]
+
+// Day 8
+export type GameBoard = Tile[];
+
+export interface Tile {
+  id: number;
+  image: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+}
+
+export interface GameOptions {
+  size: GameSize;
+  isTimed: boolean;
+}
+
+export enum GameSize {
+  Small = 12,
+  Medium = 24,
+  Large = 36,
+  Huge = 48
+}
+
+export const DEFAULT_GAME_OPTIONS: GameOptions = {
+  size: GameSize.Medium,
+  isTimed: false
+}
+
+export type GameState = "UNINITIALIZED" | "READY" | "IN_PROGRESS" | "COMPLETED";
+
