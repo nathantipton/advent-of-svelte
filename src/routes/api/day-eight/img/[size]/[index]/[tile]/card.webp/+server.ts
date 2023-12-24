@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
         return error(404, "");
     }
 
-    const response = await fetch(`/images/match-game/${number}.png`);
-    
+    const response = await fetch(`/images/match-game/${number}.webp?enhanced`);
+
     return response;
 };

@@ -87,7 +87,7 @@
     ]}"
   >
     {#each gameArray as tile, index (index)}
-      {@const url = `/api/day-eight/img/${size}/${gameId}/${index}/card.png`}
+      {@const url = `/api/day-eight/img/${size}/${gameId}/${index}/card.webp`}
       {@const flipped = tile === "f"}
       {@const matched = tile === "m"}
 
@@ -99,7 +99,7 @@
       >
         <img
           class=" object-contain h-full w-full"
-          src={!flipped && !matched ? "/images/match-game/0.png" : url}
+          src={!flipped && !matched ? "/images/match-game/0.webp" : url}
           alt="Card Back"
         />
       </button>
