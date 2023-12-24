@@ -92,13 +92,13 @@
       {@const matched = tile === "m"}
 
       <button
-        class="overflow-hidden h-full rounded-xl md:rounded-2xl lg:rounded-3xl"
+        class="overflow-hidden h-full transition-all active:scale-95 transform duration-200 ease-in-out"
         formaction="?/flip"
         value={index}
         name="tile"
       >
         <img
-          class=" object-contain h-full w-full"
+          class=" object-contain h-full w-full rounded-2xl"
           src={!flipped && !matched ? "/images/match-game/0.webp" : url}
           alt="Card Back"
         />
