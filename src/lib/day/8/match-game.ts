@@ -32,8 +32,6 @@ export class MatchGame {
             this._state = this.getState();
             this._startTime = 0;
         }
-
-
     }
 
     get size(): GameSize {

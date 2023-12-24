@@ -1,0 +1,30 @@
+// 20231223201256
+// https://gist.githubusercontent.com/nathantipton/aaf6f08483d0c4d32c89cd7a58606d8e/raw/f9a9d79410fbaa0ea576598a2da7655c62252ae8/launch.json
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Server",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "dev"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Both",
+      "configurations": ["Launch Server", "Launch Chrome"]
+    }
+  ]
+}

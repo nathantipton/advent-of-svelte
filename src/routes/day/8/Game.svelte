@@ -53,13 +53,21 @@
       stopTimer();
     }
   });
+
+  const gridClasses = {
+    [GameSize.Small]: "grid-cols-4 lg:grid-cols-6", // 12
+    [GameSize.Medium]: "grid-cols-6 lg:grid-cols-8", // 24
+    [GameSize.Large]: "grid-cols-6 md:grid-cols-9 lg:grid-cols-12 ", // 36
+    [GameSize.Huge]: "grid-cols-6 sm:grid-cols-8 md:grid-cols-12", // 48
+  };
 </script>
 
 <form
   use:enhance
   method="POST"
-  class="container mx-auto flex flex-col items-stretch justify-start gap-4 h-content-full"
+  class="absolute top-0 bottom-0 left-0 right-0 p-6 bg-base-100 flex flex-col items-stretch justify-start gap-4 container mx-auto"
 >
+  <input type="hidden" name="size" value={size} />
   <div class="flex flex-row justify-between items-center">
     <div>
       <h1 class="font-xmas text-primary text-4xl font-bold">Elf Match Game</h1>
@@ -68,32 +76,33 @@
       <Timer seconds={timeSinceStart} />
       <button class="btn btn-ghost" formaction="?/reset"> Reset </button>
       <button class="btn" formaction="?/newGame"> New Game </button>
+      <button class="btn btn-ghost" formaction="?/startOver">
+        <i class="fa-solid fa-times"></i>
+      </button>
     </div>
   </div>
   <div
-    class="flex-1 grid grid-cols-4 grid-rows-3 md:{size > 14
-      ? 'grid-cols-6'
-      : ''} gap-8 py-8 w-fit mx-auto"
+    class="card-container flex-1 min-h-0 grid gap-4 py-8 w-full mx-auto {gridClasses[
+      size
+    ]}"
   >
-    {#each gameArray as tile, index}
+    {#each gameArray as tile, index (index)}
       {@const url = `/api/day-eight/img/${size}/${gameId}/${index}/card.png`}
       {@const flipped = tile === "f"}
       {@const matched = tile === "m"}
-      <div class="flex flex-col items-center justify-center h-full w-full">
-        <button
-          class="bg-cover border border-base-300 bg-base-200 rounded-xl flex flex-col items-center justify-center min-w-[140px] h-full aspect-[166/247]"
-          formaction="?/flip"
-          value={index}
-          name="tile"
-          style:background-image={flipped || matched ? `url(${url})` : ``}
-        >
-          {#if !flipped && !matched}
-            <span>
-              <i class="fa-solid fa-snowflake text-6xl opacity-10"></i>
-            </span>
-          {/if}
-        </button>
-      </div>
+
+      <button
+        class="overflow-hidden h-full rounded-xl md:rounded-2xl lg:rounded-3xl"
+        formaction="?/flip"
+        value={index}
+        name="tile"
+      >
+        <img
+          class=" object-contain h-full w-full"
+          src={!flipped && !matched ? "/images/match-game/0.png" : url}
+          alt="Card Back"
+        />
+      </button>
     {/each}
   </div>
 
@@ -103,6 +112,13 @@
       <p class="py-4">Great job, the cards are all matched up!</p>
       <p class="text-2xl"><Timer seconds={timeSinceStart} /></p>
       <div class="modal-action">
+        <button
+          class="btn btn-lg btn-ghost flex-1"
+          formaction="?/startOver"
+          on:click={() => (gameOver = false)}
+        >
+          Close
+        </button>
         <button
           class="btn btn-lg flex-1"
           formaction="?/newGame"

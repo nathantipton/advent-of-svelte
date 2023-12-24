@@ -12,11 +12,7 @@
   }
 
   const { data } = $props<Props>();
-
-  $effect(() => {
-    console.log(data);
-  });
-
+    
   onMount(() => {
     const interval = setInterval(() => {
       invalidateAll();

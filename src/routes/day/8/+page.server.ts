@@ -2,28 +2,30 @@ import { MatchGame } from "$lib/day/8/match-game";
 import { GameSize } from "$lib/models";
 import type { Actions, PageServerLoad } from "./$types";
 
+export const ssr = false;
+
 export const load: PageServerLoad = async ({ cookies }) => {
 
     const existingGame = cookies.get('match-game');
-    let game: MatchGame;
+    let game: MatchGame | null = null;
 
     if (existingGame) {
         game = new MatchGame(existingGame);
-    } else {
-        game = new MatchGame(undefined, { size: GameSize.Small, isTimed: true });
-        cookies.set('match-game', game.toString(), { path: '' });
+        return {
+            game: {
+                gameArray: game.gameArray,
+                gameId: game.id,
+                size: game.size,
+                startTime: game.startTime,
+                gameState: game.state
+            },
+        }
     }
 
     return {
-        gameArray: game.gameArray,
-        gameId: game.id,
-        size: game.size,
-        startTime: game.startTime,
-        gameState: game.state
+        game: null
     }
 }
-
-
 
 export const actions: Actions = {
     flip: async ({ request, cookies }) => {
@@ -39,6 +41,7 @@ export const actions: Actions = {
 
         return {}
     },
+
     reset: async ({ cookies }) => {
         const game = new MatchGame(cookies.get('match-game'));
         game.reset();
@@ -47,12 +50,21 @@ export const actions: Actions = {
         return {}
     },
 
-    // TODO: make size configurable
-    newGame: async ({ cookies }) => {
+    newGame: async ({ cookies, request }) => {
         cookies.delete('match-game', { path: '' });
-        const game = new MatchGame(undefined, { size: GameSize.Small, isTimed: true });
+
+        const formData = await request.formData();
+        const size = formData.get('size');
+
+        const game = new MatchGame(undefined, { size: parseInt(size as string) as GameSize, isTimed: true });
+
         cookies.set('match-game', game.toString(), { path: '' });
 
+        return {}
+    },
+
+    startOver: async ({ cookies }) => {
+        cookies.delete('match-game', { path: '' });
         return {}
     }
 }
