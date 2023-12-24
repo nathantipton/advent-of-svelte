@@ -1,8 +1,9 @@
 import { DEFAULT_GAME_OPTIONS, GameSize, type GameOptions, type GameState } from "$lib/models";
 import { games } from "./games.server";
 
-
+export const GAME_VERSION = 1;
 export class MatchGame {
+
     options: GameOptions;
     gameId: number | null = null;
     answers: number[] = [];
@@ -103,6 +104,10 @@ export class MatchGame {
 
     toString(): string {
         // Format is "gameSize-gameIndex-gameArray"
-        return `${this.options.size}-${this.gameId}-${this.gameArray.join('')}-${this.startTime}-${this.state}`;
+        return `${GAME_VERSION}-${this.options.size}-${this.gameId}-${this.gameArray.join('')}-${this.startTime}-${this.state}`;
+    }
+
+    static isLatestVersion(gameString: string): boolean {
+        return parseInt(gameString.split('-')[0]) === GAME_VERSION;
     }
 }

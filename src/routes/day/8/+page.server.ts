@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
     const existingGame = cookies.get('match-game');
     let game: MatchGame | null = null;
 
-    if (existingGame) {
+    if (existingGame && MatchGame.isLatestVersion(existingGame)) {
         game = new MatchGame(existingGame);
         return {
             game: {
@@ -20,6 +20,10 @@ export const load: PageServerLoad = async ({ cookies }) => {
                 gameState: game.state
             },
         }
+    }
+
+    if (existingGame && !MatchGame.isLatestVersion(existingGame)) {
+        cookies.delete('match-game', { path: '' });
     }
 
     return {
