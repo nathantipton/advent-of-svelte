@@ -42,11 +42,11 @@
 ></div>
 
 <div
-  class="absolute top-32 md:top-24 bottom-0 bg-white bg-center bg-cover bg-opacity-50 left-0 right-0 -z-10"
+  class="fixed top-32 md:top-24 bottom-0 bg-white bg-center bg-cover bg-opacity-50 left-0 right-0 -z-10"
 ></div>
 
 <div
-  class="absolute top-24 bottom-0 left-0 right-0 z-10 flex flex-col items-center justify-center gap-12"
+  class="fixed top-24 bottom-0 left-0 right-0 z-10 flex flex-col items-center justify-center gap-12"
 >
   <h1 class="text-6xl font-xmas text-primary font-bold">
     Santa's Countdown {year}
