@@ -16,7 +16,7 @@ export class MatchGame {
 
         if (gameString) {
             // build game from string
-            const [size, gameId, gameArray, startTime] = gameString.split('-');
+            const [version, size, gameId, gameArray, startTime] = gameString.split('-');
             this.options.size = parseInt(size) as GameSize;
             this.gameId = parseInt(gameId);
             this.answers = games[parseInt(size) as GameSize][this.gameId];
