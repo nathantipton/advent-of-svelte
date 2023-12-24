@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SONG_CHOICES, type Song } from "$lib/models";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import YouTube from "youtube-player";
   import PlayerStates from "youtube-player/dist/constants/PlayerStates";
   import type { YouTubePlayer } from "youtube-player/dist/types";
@@ -32,6 +32,11 @@
     });
 
     window.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+      player?.destroy();
+    };
   });
 
   const handleKeydown = (event: KeyboardEvent) => {
@@ -109,13 +114,16 @@
   });
 </script>
 
+<svelte:head>
+  <title>Day 6 | Advent of Svelte 2023</title>
+</svelte:head>
+
 <div
-  data-theme="myChristmasTheme"
-  class="absolute top-0 bottom-0 left-0 right-0 bg-black -z-20"
+  class="absolute top-0 bottom-0 left-0 right-0 bg-base-100 -z-20"
   id="player"
 ></div>
 <div
-  class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-70 -z-10"
+  class="absolute top-0 bottom-0 left-0 right-0 bg-base-100 bg-opacity-70 -z-10"
 ></div>
 <div
   class="absolute container mx-auto top-6 px-4 md:px-0 bottom-0 left-0 right-0 z-10 flex flex-col items-stretch justify-start"
@@ -138,7 +146,7 @@
       {#if song}
         <select
           id="song-select"
-          class="select select-bordered w-full max-w-xs select-ghost"
+          class="select select-bordered w-full max-w-xs"
           on:change={handleSongSelection}
         >
           <option disabled selected>Pick your song</option>
@@ -157,7 +165,7 @@
           Target {targetBPM} BPM
         </div>
         <div class="flex flex-row items-baseline justify-center gap-2">
-          <div class="text-8xl font-semibold text-white">
+          <div class="text-8xl font-semibold text-base-content">
             {currentBPM?.toFixed(0) ?? "-"}
           </div>
           <div class="text-xl font-semibold text-content-300 text-opacity-30">
@@ -182,7 +190,7 @@
     {:else}
       <select
         id="song-select"
-        class="select select-lg select-bordered w-full max-w-lg select-ghost"
+        class="select select-lg select-bordered w-full max-w-lg"
         on:change={handleSongSelection}
       >
         <option disabled selected>Pick your song</option>

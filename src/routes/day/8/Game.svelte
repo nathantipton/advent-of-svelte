@@ -65,15 +65,21 @@
 <form
   use:enhance
   method="POST"
-  class="absolute top-0 bottom-0 left-0 right-0 p-6 bg-base-100 flex flex-col items-stretch justify-start gap-4 container mx-auto"
+  class="absolute top-0 bottom-0 left-0 right-0 p-6 bg-base-100 flex flex-col items-stretch justify-start gap-4 container mx-auto z-50"
 >
   <input type="hidden" name="size" value={size} />
-  <div class="flex flex-row justify-between items-center">
+  <div
+    class="flex flex-col md:flex-row justify-between md:items-center gap-4 -mb-6"
+  >
     <div>
       <h1 class="font-xmas text-primary text-4xl font-bold">Elf Match Game</h1>
     </div>
-    <div class="flex flex-row justify-end items-center gap-4">
-      <Timer seconds={timeSinceStart} />
+    <div
+      class="flex flex-row justify-between md:justify-end items-center gap-4"
+    >
+      <div class="flex-1 flex flex-row items-start">
+        <Timer seconds={timeSinceStart} />
+      </div>
       <button class="btn btn-ghost" formaction="?/reset"> Reset </button>
       <button class="btn" formaction="?/newGame"> New Game </button>
       <button class="btn btn-ghost" formaction="?/startOver">

@@ -17,6 +17,11 @@
 
 </script>
 
+<svelte:head>
+  <title>Day 8 | Advent of Svelte 2023</title>
+</svelte:head>
+
+
 {#if game?.gameArray}
   <Game {...game}></Game>
 {:else}

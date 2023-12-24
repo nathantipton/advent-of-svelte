@@ -36,6 +36,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Day 7 | Advent of Svelte 2023</title>
+</svelte:head>
+
 <div
   class="container mx-auto max-w-2xl bg-base-200 rounded-xl p-8 flex flex-col items-stretch justify-start gap-8"
 >

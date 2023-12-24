@@ -23,6 +23,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Day 5 | Advent of Svelte 2023</title>
+</svelte:head>
+
 <main class="p-8 bg-base-200 bg-opacity-50 rounded-xl">
   <div class="flex flex-row items-center justify-between flex-wrap">
     <div
