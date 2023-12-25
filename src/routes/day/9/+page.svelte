@@ -15,12 +15,12 @@
   onMount(() => {
     let today = dayjs();
 
-    if (today.month() === 11 && today.date() > 25) {
+    if (today.month() === 11 && today.date() >= 25) {
       nextChristmas = dayjs()
         .add(1, "year")
         .startOf("year")
         .add(11, "month")
-        .add(25, "day");
+        .add(24, "day");
     } else {
       nextChristmas = dayjs().startOf("year").add(11, "month").add(24, "day");
     }
