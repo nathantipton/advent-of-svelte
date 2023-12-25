@@ -13,8 +13,6 @@ export const actions: Actions = {
 
         const userElfName = findBestMatchingElfName(name as string, elfNames);
 
-        console.log(userElfName);
-
         return {
             elfName: userElfName
         };
