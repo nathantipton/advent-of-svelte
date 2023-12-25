@@ -1,7 +1,7 @@
 <script lang="ts">
   import dayjs, { type Dayjs } from "dayjs";
 
-  let progress = $state(10);
+  let progress = $state(11);
   let startDate = dayjs("2023-12-01").startOf("month");
   const calendarSquares: Array<{ day: number; date: Dayjs } | null> = [
     ...(Array.from({ length: startDate.day() }).fill(null) as null[]), //calendar offset

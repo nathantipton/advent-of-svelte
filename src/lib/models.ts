@@ -198,3 +198,8 @@ export const DEFAULT_GAME_OPTIONS: GameOptions = {
 
 export type GameState = "UNINITIALIZED" | "READY" | "IN_PROGRESS" | "COMPLETED";
 
+// Day 11
+export interface ElfNamesDTO {
+  firstNames: string[];
+  lastNames: string[];
+}
